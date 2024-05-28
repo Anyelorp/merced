@@ -1,0 +1,368 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  height: 100vh;
+  color: white;
+  background-color: #e9e9f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  width: 820px;
+  height: 340px;
+  display: flex;
+  gap: 10px;
+  margin-inline: 50px;
+}
+
+.card {
+  min-width: 70px;
+  height: 100%;
+  border-radius: 30px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: flex-end;
+  flex-grow: 1;
+  cursor: pointer;
+  position: relative;
+  transition: flex-grow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  --transition-timing: 0.35s;
+}
+/* .card.active {
+  flex-grow: 100;
+} */
+.card:hover {
+  flex-grow: 7;
+}
+
+.card > .background {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.4);
+  z-index: -1;
+  transition: var(--transition-timing) ease;
+  max-width: 100%; /* Establece un ancho máximo del 100% */
+  max-height: 100%; /* Establece una altura máxima del 100% */
+}
+.card:hover > .background {
+  filter: brightness(1);
+}
+
+.card > .card-content {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 20px;
+  overflow: hidden;
+  transition: var(--transition-timing);
+  z-index: 10;
+}
+.card:hover > .card-content {
+  inset: 20px;
+  top: auto;
+}
+
+.card-content > * {
+  transition: var(--transition-timing);
+}
+
+.card-content > .profile-image {
+  min-width: 50px;
+  max-width: 50px;
+  height: 50px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.card:hover .profile-image {
+  border: 1px solid rgb(110, 252, 205);
+}
+.profile-image > svg {
+  stroke: #fefefe;
+}
+.card:hover .profile-image > svg {
+  stroke: rgb(110, 252, 205);
+}
+
+.card-content > .title {
+  white-space: pre;
+  margin-left: 10px;
+  translate: 0 100%;
+  opacity: 0;
+}
+.card:hover .title {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.card > .backdrop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100px;
+  z-index: 0;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+}
+
+.search-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(262, 30%, 8%); /* Match the background color of the body */
+  padding: 30px 0; /* Optional internal spacing */
+  z-index: 1000; /* Ensure it's above the rest of the content */
+}
+
+.input-wrapper {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  background: hsl(231, 14%, 10%);
+  border: 2px solid #2b2c37;
+  border-radius: 10px;
+  box-shadow: hsla(0, 0%, 0%, 0.1) 0px 20px 25px -5px,
+    #0000000a 0px 10px 10px -5px;
+  transition: all 0.35s ease-out;
+  position: relative;
+}
+
+.input {
+  width: calc(100% - 70px);
+  font: inherit;
+  font-size: 18px;
+  padding: 1rem;
+}
+.input::placeholder {
+  color: #727884;
+}
+
+.input-wrapper:has(input:focus) {
+  border: 2px solid #de55de;
+  box-shadow: 0 0 120px hsl(300 67% 60% / 0.5);
+}
+
+.input-wrapper > svg {
+  position: absolute;
+  right: 1rem;
+  width: 28px;
+  flex-shrink: 0;
+  transition: 0.25s;
+}
+
+svg > path {
+  fill: none;
+  stroke: #727884;
+}
+
+.input:focus + svg > path {
+  stroke: none;
+  fill: hsl(328, 73%, 72%);
+}
+.input:focus + svg {
+  scale: 1.2;
+}
+
+.wrapper {
+  display: inline-flex;
+  list-style: none;
+}
+
+.wrapper .icon {
+  position: relative;
+  background: #333;
+  border-radius: 50%;
+  padding: 15px;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip {
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+  background: #ffffff;
+  color: #ffffff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: #ffffff;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .icon:hover .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.wrapper .icon:hover span,
+.wrapper .icon:hover .tooltip {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.facebook {
+  --color: #1877f2;
+}
+.twitter {
+  --color: #1da1f2;
+}
+.instagram {
+  --color: #e4405f;
+}
+.github {
+  --color: #333333;
+}
+.youtube {
+  --color: #cd201f;
+}
+
+.icon:hover,
+.icon:hover .tooltip,
+.icon:hover .tooltip::before {
+  background: var(--color);
+  color: white;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  height: 100vh;
+  background-color: hsl(262, 30%, 8%);
+  color: #fbfcfd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  all: unset;
+}
+
+.input-wrapper {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  background: hsl(231, 14%, 10%);
+  border: 2px solid #2b2c37;
+  border-radius: 10px;
+
+  box-shadow: hsla(0, 0%, 0%, 0.1) 0px 20px 25px -5px,
+    #0000000a 0px 10px 10px -5px;
+  transition: all 0.35s ease-out;
+  position: relative;
+}
+
+.input {
+  width: calc(100% - 70px);
+  font: inherit;
+  font-size: 18px;
+  padding: 1rem;
+}
+.input::placeholder {
+  color: #727884;
+}
+
+.input-wrapper:has(input:focus) {
+  border: 2px solid #de55de;
+  box-shadow: 0 0 120px hsl(300 67% 60% / 0.5);
+}
+
+.input-wrapper > svg {
+  position: absolute;
+  right: 1rem;
+  width: 28px;
+  flex-shrink: 0;
+  transition: 0.25s;
+}
+
+svg > path {
+  fill: none;
+  stroke: #727884;
+}
+
+.input:focus + svg > path {
+  stroke: none;
+  fill: hsl(328, 73%, 72%);
+}
+.input:focus + svg {
+  scale: 1.2;
+}
+
+.wrapper {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000; /* Asegura que los iconos estén por encima del contenido */
+  background-color: hsl(262, 30%, 8%); /* Fondo blanco */
+}
+
+
+

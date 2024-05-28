@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Noticias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .form-container h2 {
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .news-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-areas:
+                "image title"
+                "image content"
+                "footer footer";
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+        }
+        .news-card img {
+            grid-area: image;
+            width: 100%;
+            border-radius: 5px;
+        }
+        .news-card h3 {
+            grid-area: title;
+            margin-top: 0;
+        }
+        .news-card p {
+            grid-area: content;
+        }
+        .news-card .footer {
+            grid-area: footer;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Agregar Noticia</h2>
+            <form id="newsForm">
+                <div class="form-group">
+                    <label for="title">Título:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="image">URL de la Imagen:</label>
+                    <input type="url" id="image" name="image" required>
+                </div>
+                <div class="form-group">
+                    <label for="content">Contenido:</label>
+                    <textarea id="content" name="content" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="url">URL de la Noticia:</label>
+                    <input type="url" id="url" name="url" required>
+                </div>
+                <div class="btn-container">
+                    <button type="submit" class="btn">Agregar Noticia</button>
+                    <a href="file:///C:/Users/ANYELO/OneDrive/Desktop/pagLasMercedes/index.html#Vacantes%20disponibles" class="btn" id="backButton">Volver</a>
+                </div>
+            </form>
+        </div>
+        <div id="newsContainer"></div>
+    </div>
+
+    <script>
+        document.getElementById('newsForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Obtener valores del formulario
+            const title = document.getElementById('title').value;
+            const imageUrl = document.getElementById('image').value;
+            const content = document.getElementById('content').value;
+            const url = document.getElementById('url').value;
+
+            // Crear una nueva card de noticia
+            const newsCard = document.createElement('div');
+            newsCard.classList.add('news-card');
+
+            const newsImage = document.createElement('img');
+            newsImage.src = imageUrl;
+            newsCard.appendChild(newsImage);
+
+            const newsTitle = document.createElement('h3');
+            newsTitle.textContent = title;
+            newsCard.appendChild(newsTitle);
+
+            const newsContent = document.createElement('p');
+            newsContent.textContent = content;
+            newsCard.appendChild(newsContent);
+
+            const newsFooter = document.createElement('div');
+            newsFooter.classList.add('footer');
+            const newsLink = document.createElement('a');
+            newsLink.href = url;
+            newsLink.textContent = "Leer más";
+            newsLink.target = "_blank";
+            newsFooter.appendChild(newsLink);
+
+            newsCard.appendChild(newsFooter);
+
+            // Agregar la nueva card al contenedor de noticias
+            document.getElementById('newsContainer').appendChild(newsCard);
+
+            // Limpiar el formulario
+            document.getElementById('newsForm').reset();
+        });
+
+        // Botón de volver
+        document.getElementById('backButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.history.back();
+        });
+    </script>
+</body>
+</html>
